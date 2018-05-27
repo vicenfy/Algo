@@ -1,0 +1,153 @@
+\documentclass[a4paper,url]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage[small]{subfigure}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+% Change dimension of a page
+\usepackage{geometry}
+\geometry{a4paper, left = 30mm, right=30mm, top=30mm, bottom=30mm, headheight=1mm, headsep=1mm, footskip=15mm}
+
+
+%Algorithms
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+\newcommand {\rpf}{\begin{math}\rightarrow\end{math}}
+\newcommand {\ra}{\rightarrow}
+\newcommand {\epsi}{\begin{math}\epsilon\end{math}}
+
+\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbZ}{\mathbb{Z}}
+\newcommand{\bbQ}{\mathbb{Q}}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\bfE}{\mathbf{E}}
+\newcommand{\bfP}{\mathbf{P}}
+\DeclareMathOperator{\var}{\bf{var}}
+
+\selectlanguage{german}
+
+\newcounter{aufgabe_count}
+\setcounter{aufgabe_count}{1}
+\newcommand{\aufgabe}[2]{\vspace{3.5ex} {\noindent \bf\large Aufgabe
+\arabic{aufgabe_count}: \hspace{10pt}#1} \hspace{5pt}(#2 Punkte)\vspace{3pt}\\ 
+\stepcounter{aufgabe_count} 
+}
+
+\begin{document}
+\textheight55\baselineskip
+
+\pagestyle{plain}
+\pagenumbering{arabic}
+
+\noindent
+\begin{minipage}[t]{0.6\textwidth}
+\begin{flushleft}
+\bf Übungen zu Algorithmen\\
+WSI für Informatik\\
+Kaufmann/Bekos/Schneck
+\end{flushleft}
+\end{minipage}
+\begin{minipage}[t]{0.4\textwidth}
+\begin{flushright}
+\bf Sommersemester 2018\\
+Universität Tübingen\\
+18.05.2018 %@@@Datum eintragen
+\end{flushright}
+\end{minipage}
+
+\vspace{5.0ex}
+\noindent
+
+\centerline{\huge \bf Übungsblatt 5}
+\vspace{1ex}
+\centerline{\bf Abgabe bis 31.05.2018}
+\vspace{.5ex}
+\centerline{\bf Besprechung: 04.06.2018 -- 07.06.2018}
+
+\aufgabe{Bucketsort}{3}
+Gegeben seien $n$ Zahlen im Bereich $[0,\dots, n^k-1]$ für ein festes $k\in \mathbb N$.
+Zeigen Sie, dass mittels Bucketsort die Zahlen mit einer Worstcase-Laufzeit von $O(n)$ sortiert werden können.\\
+\textit{Hinweis: Stellen Sie die Zahlen zur Basis $n$ dar.}
+
+
+
+\aufgabe{Mediansuche in Linearzeit}{3 + 6}
+\begin{enumerate}[(a)]
+\item In der Vorlesung haben Sie gelernt, wie Sie den Median von fünf
+  Zahlen mit 7 Vergleichen bestimmen können. Verallgemeinern Sie
+  dieses (rekursive) Vorgehen für Eingaben ungerader Länge. Geben Sie
+  die Anzahl benötigter Vergleiche für Listen der Länge $n$, mit
+  $n\in \{7,9,11,13,15,17\}$ an.
+\item Für die Laufzeitanalyse der Medianbestimmung ergab sich bei einer Unterteilung in Fünfergruppen die folgende Rekursionsgleichung:
+\[
+T(n) \leq T
+\left(
+  \frac{n}{5}
+\right) + T
+\left(
+  \frac{7}{10}n
+\right) + c \cdot n
+\]
+\begin{enumerate}[i.]
+\item Geben Sie eine möglichst gute Konstante $c$ an.
+\item Wie verändert sich die Rekursionsgleichung, wenn die Liste in Siebener- statt in Fünfergruppen geteilt wird?
+Geben Sie auch hier eine möglichst gute Abschätzung der Konstante $c$ an.
+\end{enumerate}
+\end{enumerate}
+
+
+
+
+\aufgabe{Median in sortierten Arrays}{3 + 3}
+Seien $A[1..n]$ und $B[1..n]$ zwei sorrtierte Arrays der Größe $n$.
+\begin{enumerate}[(a)]
+\item Beschreiben Sie einen Algorithmus, der den Median aller $2n$ Elemente aus $A$ und $B$ in Zeit $\calO(\log n)$ findet.
+\item Begründen Sie die Laufzeit und die Korrektheit Ihres Algorithmus.
+\end{enumerate}
+Für die Analyse Ihres Algorithmus dürfen Sie annehmen, dass $n$ eine Zweierpotenz ist.
+
+\newpage
+
+\aufgabe{Konvexe Hülle}{4}
+Gegeben sei eine Menge $M=\{(x_i, y_i)\in \mathbb Q^2 \mid 1 \leq i \leq n\}$. Die konvexe Hülle $\operatorname{conv}(M)$ einer Menge $M$ ist der kleinste Polyeder der alle Punkte in $M$ enthält. Eine einfache Repräsentation der konvexen Hülle ist die kleinste Menge $N \subseteq M$ von Punkten, so dass $\operatorname{conv}(N)=\operatorname{conv}(M)$. Bildlich gesprochen: die \textit{Eckpunkte} der Menge $M$. Eine \textit{zyklische Sortierung} der Eckpunkte ist eine Ordnung der Punkte in $N$ so, dass beim Ablaufen der Punkte nach der Sortierung ein Weg um das Polygon entsteht.
+
+\medskip\noindent Nehmen Sie an, dass Sie einen Algorithmus haben der in Zeit $T(n)$, gegeben eine Menge $M$ (wie oben), eine zyklische Sortierung der Eckpunkte der konvexen Hülle ausgibt. Zeigen Sie, dass $\Omega(n \log n)$ eine untere Schranke für die worst-case Laufzeit des Algorithmus ist.
+
+\begin{figure}[htp!]
+\begin{center}
+  \begin{tikzpicture}
+    \draw[fill] (0,0) circle(1.5pt) node[left]{$x_1$};
+    \draw[fill] (1,1) circle(1.5pt) node[left]{$x_2$};
+    \draw[fill] (.5,2) circle(1.5pt) node[left]{$x_6$};
+    \draw[fill] (2,1) circle(1.5pt) node[right]{$x_3$};
+    \draw[fill] (-1,3) circle(1.5pt) node[left]{$x_4$};
+    \draw[fill] (2,3) circle(1.5pt) node[right]{$x_5$};   
+    \draw (0,0) -- (2,1) -- (2,3) -- (-1,3)-- (0,0);
+    \draw[fill=black, opacity=.2] (0,0) -- (2,1) -- (2,3) -- (-1,3)-- (0,0);
+  \end{tikzpicture}\\
+\end{center}
+\caption{Der Algorithmus erhält die Punktemenge $\{x_1,\dots,x_6\}$ und gibt die Punkteliste $(x_1,x_4,x_5,x_3)$ aus. Der grau gefärbte Bereich ist die konvexe Hülle.
+}\end{figure}
+
+
+\aufgabe{Untere Schranken}{3 + 5}
+Sei $A$ eine sortierte Liste der Größe $n$.
+\begin{enumerate}[(a)]
+\item Das erste Problem besteht daraus, zu entscheiden, ob in der Liste $A$ Duplikate vorkommen.
+Beweisen Sie, dass $n-1$ eine untere Schranke für die Anzahl der Vergleiche ist, die man dafür braucht.
+\item Das zweite Problem ist es, zu entscheiden, ob in der Liste $A$ ein beliebiger Wert $x$ vorkommt.
+Beweisen Sie, dass im worst-case $\Omega(\log n)$ Vergleiche dafür benötigt werden (unabhängig vom verwendeten
+Algorithmus).
+\end{enumerate}
+
+
+\end{document}
